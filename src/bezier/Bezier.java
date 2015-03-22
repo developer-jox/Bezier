@@ -70,21 +70,21 @@ public class Bezier extends JPanel {
         while (true) {
             for (int i = 0; i < pntVx.length; ++i) {
                 if (Math.signum(pntVx[i]) >= 0.0) {
-                    if (Math.random() >= 0.5 && pntVx[i] < 5) {
+                    if (Math.random() >= 0.5 && pntVx[i] < 2) {
                         Random rnd = new Random();
                         pntVx[i] += rnd.nextDouble() + 0.01;
                     }
-                    if (Math.random() < 0.5 && pntVx[i] > -5) {
+                    if (Math.random() < 0.5 && pntVx[i] > -2) {
                         Random rnd = new Random();
                         pntVx[i] -= rnd.nextDouble() + 0.01;
                     }
                 }
                 if (Math.signum(pntVx[i]) == -1.0) {
-                    if (Math.random() >= 0.5 && pntVx[i] < 5) {
+                    if (Math.random() >= 0.5 && pntVx[i] < 2) {
                         Random rnd = new Random();
                         pntVx[i] += rnd.nextDouble() + 0.01;
                     }
-                    if (Math.random() < 0.5 && pntVx[i] > -5) {
+                    if (Math.random() < 0.5 && pntVx[i] > -2) {
                         Random rnd = new Random();
                         pntVx[i] -= rnd.nextDouble() + 0.01;
                     }
@@ -92,21 +92,21 @@ public class Bezier extends JPanel {
             }
             for (int i = 0; i < pntVy.length; ++i) {
                 if (Math.signum(pntVy[i]) >= 0.0) {
-                    if (Math.random() >= 0.5 && pntVy[i] < 5) {
+                    if (Math.random() >= 0.5 && pntVy[i] < 2) {
                         Random rnd = new Random();
                         pntVy[i] += rnd.nextDouble() + 0.01;
                     }
-                    if (Math.random() < 0.5 && pntVy[i] > -5) {
+                    if (Math.random() < 0.5 && pntVy[i] > -2) {
                         Random rnd = new Random();
                         pntVy[i] -= rnd.nextDouble() + 0.01;
                     }
                 }
                 if (Math.signum(pntVy[i]) == -1.0) {
-                    if (Math.random() >= 0.5 && pntVy[i] < 5) {
+                    if (Math.random() >= 0.5 && pntVy[i] < 2) {
                         Random rnd = new Random();
                         pntVy[i] += rnd.nextDouble() + 0.01;
                     }
-                    if (Math.random() < 0.5 && pntVy[i] > -5) {
+                    if (Math.random() < 0.5 && pntVy[i] > -2) {
                         Random rnd = new Random();
                         pntVy[i] -= rnd.nextDouble() + 0.01;
                     }
