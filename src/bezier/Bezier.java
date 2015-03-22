@@ -42,16 +42,18 @@ public class Bezier extends JPanel {
     double[] pntVy = new double[NRPOINTS];
 
     CubicCurve2D q = new CubicCurve2D.Double();
+    CubicCurve2D q2 = new CubicCurve2D.Double();
 
     public Bezier() {
-        Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
-        setPreferredSize(new Dimension(res.width, res.height - 79));
+//        Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
+//        setPreferredSize(new Dimension(res.width, res.height - 79));
+        setPreferredSize(new Dimension(550, 550));
         setDoubleBuffered(true);
 
-        p[0] = new Point2D.Double(110, 120);
+        p[0] = new Point2D.Double(210, 220);
         p[1] = new Point2D.Double(200, 100);
-        p[2] = new Point2D.Double(100, 200);
-        p[3] = new Point2D.Double(390, 150);
+        p[2] = new Point2D.Double(200, 200);
+        p[3] = new Point2D.Double(390, 250);
     }
 //    public Point P(double t, Point A, Point B, Point C, Point D) {
 //        double a = Math.pow(1 - t, 3);
@@ -67,32 +69,73 @@ public class Bezier extends JPanel {
         while (true) {
             for (int i = 0; i < pntVx.length; ++i) {
                 if (Math.signum(pntVx[i]) >= 0.0) {
-                    pntVx[i] += 0.001 * Math.random();
+                    if (Math.random() >= 0.5 && pntVx[i] < 5) {
+                        Random rnd = new Random();
+                        pntVx[i] += rnd.nextDouble() + 0.01;
+                    }
+                    if (Math.random() < 0.5 && pntVx[i] > -5) {
+                        Random rnd = new Random();
+                        pntVx[i] -= rnd.nextDouble() + 0.01;
+                    }
                 }
                 if (Math.signum(pntVx[i]) == -1.0) {
-                    pntVx[i] -= 0.001 * Math.random();
+                    if (Math.random() >= 0.5 && pntVx[i] < 5) {
+                        Random rnd = new Random();
+                        pntVx[i] += rnd.nextDouble() + 0.01;
+                    }
+                    if (Math.random() < 0.5 && pntVx[i] > -5) {
+                        Random rnd = new Random();
+                        pntVx[i] -= rnd.nextDouble() + 0.01;
+                    }
                 }
             }
             for (int i = 0; i < pntVy.length; ++i) {
                 if (Math.signum(pntVy[i]) >= 0.0) {
-                    pntVy[i] += 0.001 * Math.random();
+                    if (Math.random() >= 0.5 && pntVy[i] < 5) {
+                        Random rnd = new Random();
+                        pntVy[i] += rnd.nextDouble() + 0.01;
+                    }
+                    if (Math.random() < 0.5 && pntVy[i] > -5) {
+                        Random rnd = new Random();
+                        pntVy[i] -= rnd.nextDouble() + 0.01;
+                    }
                 }
                 if (Math.signum(pntVy[i]) == -1.0) {
-                    pntVy[i] -= 0.001 * Math.random();
+                    if (Math.random() >= 0.5 && pntVy[i] < 5) {
+                        Random rnd = new Random();
+                        pntVy[i] += rnd.nextDouble() + 0.01;
+                    }
+                    if (Math.random() < 0.5 && pntVy[i] > -5) {
+                        Random rnd = new Random();
+                        pntVy[i] -= rnd.nextDouble() + 0.01;
+                    }
                 }
             }
             for (int i = 0; i < p.length; i++) {
-                if (p[i].getX() < 100 || p[i].getX() > 400) {
+                if (p[i].getX() > 400) {
+//                    System.out.println("X > 400");
+                    p[i].setLocation(400, p[i].getY());
                     pntVx[i] = -pntVx[i];
                 }
-                if (p[i].getY() < 100 || p[i].getY() > 400) {
+                if (p[i].getX() < 100) {
+                    p[i].setLocation(100, p[i].getY());
+//                    System.out.println("X < 100");
+                    pntVx[i] = -pntVx[i];
+                }
+                if (p[i].getY() > 400) {
+//                    System.out.println("Y > 100");
+                    p[i].setLocation(p[i].getX(), 400);
+                    pntVy[i] = -pntVy[i];
+                }
+                if (p[i].getY() < 100) {
+                    p[i].setLocation(p[i].getX(), 100);
+//                    System.out.println("Y < 100");
                     pntVy[i] = -pntVy[i];
                 }
             }
             for (int i = 0; i < p.length; ++i) {
                 p[i].setLocation(p[i].getX() + pntVx[i], p[i].getY() + pntVy[i]);
             }
-            Random rnd = new Random();
             q.setCurve(p, 0);
 
             repaint();
