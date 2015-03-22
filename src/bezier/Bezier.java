@@ -51,7 +51,7 @@ public class Bezier extends JPanel {
         p[0] = new Point2D.Double(110, 120);
         p[1] = new Point2D.Double(200, 100);
         p[2] = new Point2D.Double(100, 200);
-        p[3] = new Point2D.Double(120, 150);
+        p[3] = new Point2D.Double(390, 150);
     }
 //    public Point P(double t, Point A, Point B, Point C, Point D) {
 //        double a = Math.pow(1 - t, 3);
@@ -66,17 +66,27 @@ public class Bezier extends JPanel {
     public void run() {
         while (true) {
             for (int i = 0; i < pntVx.length; ++i) {
-                pntVx[i] += 0.001;
+                if (Math.signum(pntVx[i]) >= 0.0) {
+                    pntVx[i] += 0.001 * Math.random();
+                }
+                if (Math.signum(pntVx[i]) == -1.0) {
+                    pntVx[i] -= 0.001 * Math.random();
+                }
             }
             for (int i = 0; i < pntVy.length; ++i) {
-                pntVy[i] += 0.001;
+                if (Math.signum(pntVy[i]) >= 0.0) {
+                    pntVy[i] += 0.001 * Math.random();
+                }
+                if (Math.signum(pntVy[i]) == -1.0) {
+                    pntVy[i] -= 0.001 * Math.random();
+                }
             }
             for (int i = 0; i < p.length; i++) {
                 if (p[i].getX() < 100 || p[i].getX() > 400) {
-                    pntVy[i] = -pntVy[i];
+                    pntVx[i] = -pntVx[i];
                 }
                 if (p[i].getY() < 100 || p[i].getY() > 400) {
-                    pntVx[i] = -pntVx[i];
+                    pntVy[i] = -pntVy[i];
                 }
             }
             for (int i = 0; i < p.length; ++i) {
@@ -85,7 +95,6 @@ public class Bezier extends JPanel {
             Random rnd = new Random();
             q.setCurve(p, 0);
 
-            System.out.println("p.length: " + p.length);
             repaint();
             try {
                 Thread.sleep(10);
@@ -98,7 +107,7 @@ public class Bezier extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawRect(100, 100, 400, 400);
+        g2.drawRect(100, 100, 300, 300);
         g2.setStroke(new BasicStroke(0.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
