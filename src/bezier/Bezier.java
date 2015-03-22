@@ -45,8 +45,9 @@ public class Bezier extends JPanel {
     CubicCurve2D q2 = new CubicCurve2D.Double();
 
     public Bezier() {
-//        Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
+//        Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 
 //        setPreferredSize(new Dimension(res.width, res.height - 79));
+        
         setPreferredSize(new Dimension(550, 550));
         setDoubleBuffered(true);
 
