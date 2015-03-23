@@ -43,11 +43,13 @@ public class Bezier extends JPanel {
 
     CubicCurve2D q = new CubicCurve2D.Double();
     CubicCurve2D q2 = new CubicCurve2D.Double();
+    
+    boolean init = true;
 
     public Bezier() {
 //        Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 
 //        setPreferredSize(new Dimension(res.width, res.height - 79));
-        
+
         setPreferredSize(new Dimension(550, 550));
         setDoubleBuffered(true);
 
@@ -67,48 +69,59 @@ public class Bezier extends JPanel {
 //    }
 
     public void run() {
+        if (init){
+            for (int i = 0; i < p.length; i++) {
+                pntVx[i] = 2;
+                pntVy[i] = 2;
+            }
+            init = false;
+        }
         while (true) {
             for (int i = 0; i < pntVx.length; ++i) {
-                if (Math.signum(pntVx[i]) >= 0.0) {
-                    if (Math.random() >= 0.5 && pntVx[i] < 2) {
-                        Random rnd = new Random();
-                        pntVx[i] += rnd.nextDouble() + 0.01;
+                if (p[i].getY() > 400 || p[i].getY() < 100) {
+                    if (Math.signum(pntVx[i]) >= 0.0) {
+                        if (Math.random() >= 0.5 && pntVx[i] < 2) {
+                            Random rnd = new Random();
+                            pntVx[i] += rnd.nextDouble() + 0.01;
+                        }
+                        if (Math.random() < 0.5 && pntVx[i] > -2) {
+                            Random rnd = new Random();
+                            pntVx[i] -= rnd.nextDouble() + 0.01;
+                        }
                     }
-                    if (Math.random() < 0.5 && pntVx[i] > -2) {
-                        Random rnd = new Random();
-                        pntVx[i] -= rnd.nextDouble() + 0.01;
-                    }
-                }
-                if (Math.signum(pntVx[i]) == -1.0) {
-                    if (Math.random() >= 0.5 && pntVx[i] < 2) {
-                        Random rnd = new Random();
-                        pntVx[i] += rnd.nextDouble() + 0.01;
-                    }
-                    if (Math.random() < 0.5 && pntVx[i] > -2) {
-                        Random rnd = new Random();
-                        pntVx[i] -= rnd.nextDouble() + 0.01;
+                    if (Math.signum(pntVx[i]) == -1.0) {
+                        if (Math.random() >= 0.5 && pntVx[i] < 2) {
+                            Random rnd = new Random();
+                            pntVx[i] += rnd.nextDouble() + 0.01;
+                        }
+                        if (Math.random() < 0.5 && pntVx[i] > -2) {
+                            Random rnd = new Random();
+                            pntVx[i] -= rnd.nextDouble() + 0.01;
+                        }
                     }
                 }
             }
             for (int i = 0; i < pntVy.length; ++i) {
-                if (Math.signum(pntVy[i]) >= 0.0) {
-                    if (Math.random() >= 0.5 && pntVy[i] < 2) {
-                        Random rnd = new Random();
-                        pntVy[i] += rnd.nextDouble() + 0.01;
+                if (p[i].getY() > 400 || p[i].getY() < 100) {
+                    if (Math.signum(pntVy[i]) >= 0.0) {
+                        if (Math.random() >= 0.5 && pntVy[i] < 2) {
+                            Random rnd = new Random();
+                            pntVy[i] += rnd.nextDouble() + 0.01;
+                        }
+                        if (Math.random() < 0.5 && pntVy[i] > -2) {
+                            Random rnd = new Random();
+                            pntVy[i] -= rnd.nextDouble() + 0.01;
+                        }
                     }
-                    if (Math.random() < 0.5 && pntVy[i] > -2) {
-                        Random rnd = new Random();
-                        pntVy[i] -= rnd.nextDouble() + 0.01;
-                    }
-                }
-                if (Math.signum(pntVy[i]) == -1.0) {
-                    if (Math.random() >= 0.5 && pntVy[i] < 2) {
-                        Random rnd = new Random();
-                        pntVy[i] += rnd.nextDouble() + 0.01;
-                    }
-                    if (Math.random() < 0.5 && pntVy[i] > -2) {
-                        Random rnd = new Random();
-                        pntVy[i] -= rnd.nextDouble() + 0.01;
+                    if (Math.signum(pntVy[i]) == -1.0) {
+                        if (Math.random() >= 0.5 && pntVy[i] < 2) {
+                            Random rnd = new Random();
+                            pntVy[i] += rnd.nextDouble() + 0.01;
+                        }
+                        if (Math.random() < 0.5 && pntVy[i] > -2) {
+                            Random rnd = new Random();
+                            pntVy[i] -= rnd.nextDouble() + 0.01;
+                        }
                     }
                 }
             }
@@ -157,13 +170,13 @@ public class Bezier extends JPanel {
 
         g2.setColor(Color.black);
         g2.draw(q);
-        g2.fillRect((int) p[3].getX() - 5, (int) p[3].getY() - 5, 10, 10);
-        g2.fillRect((int) p[0].getX() - 5, (int) p[0].getY() - 5, 10, 10);
-        g2.drawRect((int) p[1].getX() - 5, (int) p[1].getY() - 5, 10, 10);
-        g2.drawRect((int) p[2].getX() - 5, (int) p[2].getY() - 5, 10, 10);
+//        g2.fillRect((int) p[3].getX() - 5, (int) p[3].getY() - 5, 10, 10);
+//        g2.fillRect((int) p[0].getX() - 5, (int) p[0].getY() - 5, 10, 10);
+//        g2.drawRect((int) p[1].getX() - 5, (int) p[1].getY() - 5, 10, 10);
+//        g2.drawRect((int) p[2].getX() - 5, (int) p[2].getY() - 5, 10, 10);
         g2.setColor(Color.red);
         for (Point2D p1 : p) {
-            g2.drawOval((int) p1.getX() - 1, (int) p1.getY() - 1, 2, 2);
+            g2.drawOval((int) p1.getX() - 2, (int) p1.getY() - 2, 4, 4);
         }
 
     }
