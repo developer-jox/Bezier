@@ -34,9 +34,8 @@ import javax.swing.JPanel;
  */
 public class Bezier extends JPanel {
 
-    static final int NRCURVES = 3;
-//    static final int NRPOINTS = 10;
-    static final int NRPOINTS = 1 + 3 * NRCURVES;
+    static final int NRCURVES = 1;
+    static final int NRPOINTS = 4 * NRCURVES;
 
     Point2D[] p = new Point2D.Double[NRPOINTS];
     double[] pntVx = new double[NRPOINTS];
@@ -44,48 +43,20 @@ public class Bezier extends JPanel {
 
     CubicCurve2D q = new CubicCurve2D.Double();
     CubicCurve2D q2 = new CubicCurve2D.Double();
-    CubicCurve2D q3 = new CubicCurve2D.Double();
-
+    
     boolean init = true;
 
     public Bezier() {
-        Dimension res = Toolkit.getDefaultToolkit().getScreenSize();
-        setPreferredSize(new Dimension(res.width, res.height - 79));
-        setSize(res.width, res.height - 79);
-//        setPreferredSize(new Dimension(550, 550));
+//        Dimension res = Toolkit.getDefaultToolkit().getScreenSize(); 
+//        setPreferredSize(new Dimension(res.width, res.height - 79));
+
+        setPreferredSize(new Dimension(550, 550));
         setDoubleBuffered(true);
 
-        Random rndX = new Random();
-        Random rndY = new Random();
-
-        p[0] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100) + 1); //q1 start is q3 end
-        rndX = new Random();
-        rndY = new Random();
-        p[1] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100) + 1); //ctrl1
-        rndX = new Random();
-        rndY = new Random();
-        p[2] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100) + 1); //ctrl2
-        rndX = new Random();
-        rndY = new Random();
-        p[3] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100) + 1); //q1 end is q2 start
-        rndX = new Random();
-        rndY = new Random();
-        p[4] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100)+ 1); //ctrl1
-        rndX = new Random();
-        rndY = new Random();
-        p[5] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100)+ 1); //ctrl2
-        rndX = new Random();
-        rndY = new Random();
-        p[6] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100) + 1); //q2 end is q3 start 
-        rndX = new Random();
-        rndY = new Random();
-        p[7] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100)+ 1); //ctrl1
-        rndX = new Random();
-        rndY = new Random();
-        p[8] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100)+ 1); //ctrl2
-        rndX = new Random();
-        rndY = new Random();
-        p[9] = new Point2D.Double(rndX.nextInt(getWidth() - 100) + 1, rndY.nextInt(getHeight() - 100)+ 1); //q1 start is q3 end
+        p[0] = new Point2D.Double(210, 220);
+        p[1] = new Point2D.Double(200, 100);
+        p[2] = new Point2D.Double(200, 200);
+        p[3] = new Point2D.Double(390, 250);
     }
 //    public Point P(double t, Point A, Point B, Point C, Point D) {
 //        double a = Math.pow(1 - t, 3);
@@ -98,7 +69,7 @@ public class Bezier extends JPanel {
 //    }
 
     public void run() {
-        if (init) {
+        if (init){
             for (int i = 0; i < p.length; i++) {
                 pntVx[i] = 2;
                 pntVy[i] = 2;
@@ -107,13 +78,13 @@ public class Bezier extends JPanel {
         }
         while (true) {
             for (int i = 0; i < pntVx.length; ++i) {
-                if (p[i].getX() > getWidth() - 100 || p[i].getX() < 100) {
+                if (p[i].getY() > 400 || p[i].getY() < 100) {
                     if (Math.signum(pntVx[i]) >= 0.0) {
                         if (Math.random() >= 0.5 && pntVx[i] < 2) {
                             Random rnd = new Random();
                             pntVx[i] += rnd.nextDouble() + 0.01;
                         }
-                        if (Math.random() < 0.5 && pntVx[i] > -2 && pntVx[i] > 1) {
+                        if (Math.random() < 0.5 && pntVx[i] > -2) {
                             Random rnd = new Random();
                             pntVx[i] -= rnd.nextDouble() + 0.01;
                         }
@@ -123,7 +94,7 @@ public class Bezier extends JPanel {
                             Random rnd = new Random();
                             pntVx[i] += rnd.nextDouble() + 0.01;
                         }
-                        if (Math.random() < 0.5 && pntVx[i] > -2 && pntVx[i] > 1) {
+                        if (Math.random() < 0.5 && pntVx[i] > -2) {
                             Random rnd = new Random();
                             pntVx[i] -= rnd.nextDouble() + 0.01;
                         }
@@ -131,13 +102,13 @@ public class Bezier extends JPanel {
                 }
             }
             for (int i = 0; i < pntVy.length; ++i) {
-                if (p[i].getY() > getHeight() - 100 || p[i].getY() < 100) {
+                if (p[i].getY() > 400 || p[i].getY() < 100) {
                     if (Math.signum(pntVy[i]) >= 0.0) {
                         if (Math.random() >= 0.5 && pntVy[i] < 2) {
                             Random rnd = new Random();
                             pntVy[i] += rnd.nextDouble() + 0.01;
                         }
-                        if (Math.random() < 0.5 && pntVy[i] > -2 && pntVy[i] > 1) {
+                        if (Math.random() < 0.5 && pntVy[i] > -2) {
                             Random rnd = new Random();
                             pntVy[i] -= rnd.nextDouble() + 0.01;
                         }
@@ -147,17 +118,17 @@ public class Bezier extends JPanel {
                             Random rnd = new Random();
                             pntVy[i] += rnd.nextDouble() + 0.01;
                         }
-                        if (Math.random() < 0.5 && pntVy[i] > -2 && pntVy[i] > 1) {
+                        if (Math.random() < 0.5 && pntVy[i] > -2) {
                             Random rnd = new Random();
                             pntVy[i] -= rnd.nextDouble() + 0.01;
                         }
                     }
                 }
             }
-            for (int i = 0; i < p.length - 1; i++) {
-                if (p[i].getX() > getWidth() - 100) {
+            for (int i = 0; i < p.length; i++) {
+                if (p[i].getX() > 400) {
 //                    System.out.println("X > 400");
-                    p[i].setLocation(getWidth() - 100, p[i].getY());
+                    p[i].setLocation(400, p[i].getY());
                     pntVx[i] = -pntVx[i];
                 }
                 if (p[i].getX() < 100) {
@@ -165,9 +136,9 @@ public class Bezier extends JPanel {
 //                    System.out.println("X < 100");
                     pntVx[i] = -pntVx[i];
                 }
-                if (p[i].getY() > getHeight() - 100) {
+                if (p[i].getY() > 400) {
 //                    System.out.println("Y > 100");
-                    p[i].setLocation(p[i].getX(), getHeight() - 100);
+                    p[i].setLocation(p[i].getX(), 400);
                     pntVy[i] = -pntVy[i];
                 }
                 if (p[i].getY() < 100) {
@@ -176,19 +147,10 @@ public class Bezier extends JPanel {
                     pntVy[i] = -pntVy[i];
                 }
             }
-
             for (int i = 0; i < p.length; ++i) {
                 p[i].setLocation(p[i].getX() + pntVx[i], p[i].getY() + pntVy[i]);
             }
-            p[9].setLocation(p[0].getX(), p[0].getY());
-//            p[4].setLocation(p[1].getX(), p[1].getY());
-//            p[5].setLocation(p[2].getX(), p[2].getY());
-//            p[7].setLocation(p[1].getX(), p[1].getY());
-//            p[8].setLocation(p[2].getX(), p[2].getY());
-            
             q.setCurve(p, 0);
-            q2.setCurve(p, 3);
-            q3.setCurve(p, 6);
 
             repaint();
             try {
@@ -202,22 +164,20 @@ public class Bezier extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawRect(100, 100, getWidth() - 200, getHeight() - 200);
+        g2.drawRect(100, 100, 300, 300);
         g2.setStroke(new BasicStroke(0.5f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2.setColor(Color.black);
         g2.draw(q);
-        g2.draw(q2);
-        g2.draw(q3);
 //        g2.fillRect((int) p[3].getX() - 5, (int) p[3].getY() - 5, 10, 10);
 //        g2.fillRect((int) p[0].getX() - 5, (int) p[0].getY() - 5, 10, 10);
 //        g2.drawRect((int) p[1].getX() - 5, (int) p[1].getY() - 5, 10, 10);
 //        g2.drawRect((int) p[2].getX() - 5, (int) p[2].getY() - 5, 10, 10);
-//        g2.setColor(Color.red);
-//        for (Point2D p1 : p) {
-//            g2.drawOval((int) p1.getX() - 2, (int) p1.getY() - 2, 4, 4);
-//        }
+        g2.setColor(Color.red);
+        for (Point2D p1 : p) {
+            g2.drawOval((int) p1.getX() - 2, (int) p1.getY() - 2, 4, 4);
+        }
 
     }
 }
